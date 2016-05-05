@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">宅基地</string>
+    <string name="loading">正在加载中</string>
+
+    <string name="drawer_btn_rss">分类管理</string>
+    <string name="subscribe_my_category">我的分类</string>
+    <string name="subscribe_more_category">更多分类</string>
+    <string name="subscribe_manager_category_info">单击增删分类</string>
+    <string name="subscribe_manager_category_info_2">单击增删分类，长按拖拽排序(返回自动保存)</string>
+</resources>

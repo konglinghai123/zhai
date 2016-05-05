@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="blueText">#1485C6</color>
+    <color name="blueIndexStatus">#67A5EF</color>
+    <color name="blueStatus">#1680E2</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="dark">#424242</color>
+    <color name="red">#FFD4212A</color>
+    <color name="grey">#8C8C8C</color>
+    <color name="line">#EEEEEE</color>
+    <color name="background">#F9F9FA</color>
+
+    <color name="greyBackground">#FFCFCFCF</color>
+    <color name="jianshured">#E78271</color>
+    <color name="jianshutabBackground">#F4F4F4</color>
+    <color name="jianshuwhite">#FFFFFF</color>
+
+    <color name="default_text">#ff454545</color>
+    <color name="subscribe_line_color">#ffd9d9d9</color>
+    <color name="subscribe_line_color_night">#ff464646</color>
+    <color name="subscribe_bg">#fff5f5f5</color>
+    <color name="subscribe_bg_night">#ff252525</color>
+    <color name="subscribe_icon_day">#ff444444</color>
+    <color name="subscribe_tip_text">#ff2e2e2e</color>
+    <color name="default_text_night">#ff747474</color>
+    <item name="subscribe_tip_text_night" type="color">@color/default_text_night</item>
+    <item name="subscribe_item_text_color" type="color">@color/default_text</item>
+    <color name="subscribe_activity_bg">#ffefefef</color>
+    <color name="subscribe_activity_bg_night">#ff252525</color>
+    <color name="subscribe_seperate_line">#ffcdcdcd</color>
+    <color name="subscribe_seperate_line_night">#ff464646</color>
+
+    <item name="subscribe_item_text_color_normal" type="color">@color/default_text</item>
+
+    <color name="subscribe_item_text_color_pressed">#ffb9b9b9</color>
+
+    <item name="subscribe_item_text_color_normal_night" type="color">@color/default_text_night</item>
+
+    <color name="subscribe_item_text_color_pressed_night">#ff303030</color>
+    <color name="subscribe_item_focused_stroke">#ffd9d9d9</color>
+    <color name="subscribe_item_drag_stroke">#ffd2d2d2</color>
+    <color name="subscribe_item_drag_bg">#fff5f5f5</color>
+    <color name="subscribe_item_drag_stroke_night">#ff464646</color>
+    <color name="subscribe_item_drag_bg_night">#ff252525</color>
+    <color name="subscribe_item_selected_bg">#ffffffff</color>
+    <color name="subscribe_item_selected_stroke">#ffcc3131</color>
+    <color name="subscribe_item_disabled_bg">#ffefefef</color>
+    <color name="subscribe_item_disabled_stroke">#ffd9d9d9</color>
+    <color name="subscribe_item_pressed_bg">#fff9f9f9</color>
+    <color name="subscribe_item_pressed_stroke">#ffcdcdcd</color>
+    <color name="subscribe_item_normal_bg">#fff5f5f5</color>
+    <color name="subscribe_item_normal_stroke">#ffcdcdcd</color>
+    <color name="subscribe_item_focused_bg_night">#ff252525</color>
+    <color name="subscribe_item_focused_stroke_night">#ff464646</color>
+    <color name="subscribe_item_selected_bg_night">#ff252525</color>
+    <color name="subscribe_item_selected_stroke_night">#ffbc494d</color>
+    <color name="subscribe_item_disabled_bg_night">#ff2b2b2b</color>
+    <item name="subscribe_item_disabled_stroke_night" type="color">@color/subscribe_item_focused_stroke_night</item>
+    <item name="subscribe_item_pressed_bg_night" type="color">@color/subscribe_item_disabled_bg_night</item>
+    <item name="subscribe_item_pressed_stroke_night" type="color">@color/subscribe_item_focused_stroke_night</item>
+    <item name="subscribe_item_normal_bg_night" type="color">@color/subscribe_item_focused_bg_night</item>
+    <item name="subscribe_item_normal_stroke_night" type="color">@color/subscribe_item_focused_stroke_night</item>
+
+
+    <color name="top_category_scroll_view_text_normal_day">#ff909090</color>
+
+</resources>

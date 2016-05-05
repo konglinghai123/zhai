@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/fragment_foot_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/jianshuwhite"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
+
+                <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/ic_main"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/jianshured"
+                    android:gravity="center_horizontal"
+                    android:textSize="10sp"
+                    android:text="首页"
+                    />
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="40dp"
+                android:gravity="center_vertical"
+                >
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前页数"
+                android:id="@+id/tv_page_current"
+                android:textColor="@color/jianshured"
+                android:textSize="18sp"
+
+                />
+           <EditText
+               android:layout_toRightOf="@+id/tv_page_current"
+               android:id="@+id/et_page_current"
+               android:layout_width="36dp"
+               android:layout_height="wrap_content"
+               android:background="@null"
+               android:gravity="center_horizontal"
+               android:textSize="18sp"
+               android:textColor="@android:color/black"
+               android:inputType="number"
+               />
+            <TextView
+                android:layout_toRightOf="@+id/et_page_current"
+                android:id="@+id/tv_page_totle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/1"
+                android:textColor="@color/jianshured"
+                android:textSize="18sp"
+                />
+            <ImageView
+                android:id="@+id/iv_page_goto"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@mipmap/ic_goto"
+                android:layout_alignBottom="@+id/tv_page_totle"
+                android:layout_toRightOf="@+id/tv_page_totle"
+                android:layout_toEndOf="@+id/tv_page_totle"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+</merge>
