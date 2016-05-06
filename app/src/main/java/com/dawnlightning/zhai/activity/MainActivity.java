@@ -8,11 +8,14 @@ import android.support.v4.view.ViewPager;
 import com.dawnlightning.zhai.R;
 
 import com.dawnlightning.zhai.adapter.MyFragmentPagerAdapter;
+import com.dawnlightning.zhai.base.Actions;
 import com.dawnlightning.zhai.base.AppApplication;
 import com.dawnlightning.zhai.base.BaseActivity;
+import com.dawnlightning.zhai.base.Classify;
 import com.dawnlightning.zhai.bean.ChannelItem;
 import com.dawnlightning.zhai.bean.ChannelManage;
 import com.dawnlightning.zhai.fragment.BaseFragment;
+import com.dawnlightning.zhai.model.ImageListModel;
 import com.dawnlightning.zhai.widget.ColumnHorizontalScrollView;
 
 
@@ -71,6 +74,7 @@ public class MainActivity extends BaseActivity {
     private ArrayList<ChannelItem> userChannelList=new ArrayList<ChannelItem>();
     private long mExitTime;//点击返回键的时间
    private CustomLazyFragmentPagerAdapter customLazyFragmentPagerAdapter;
+    private ImageListModel model=new ImageListModel();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,11 +101,13 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.jianshured));
         toolbar.setTitle("");
         ((TextView)toolbar.findViewById(R.id.toolbar_title)).setText("首页");
+
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+                model.jsoupGetImageList(0, null, Actions.Refresh);
             }
         });
         button_more_columns.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +121,9 @@ public class MainActivity extends BaseActivity {
 
 
     }
+
     private void initData(){
+
         initColumnData();
         initTabColumn();
         initFragment();
@@ -208,15 +216,10 @@ public class MainActivity extends BaseActivity {
      * */
     private void initFragment() {
         fragmentList.clear();//清空
-        int count =  userChannelList.size();
         fragmentManager =getSupportFragmentManager();
 
       customLazyFragmentPagerAdapter=new CustomLazyFragmentPagerAdapter(fragmentManager);
-        //myFragmentPagerAdapter=new MyFragmentPagerAdapter(customLazyFragmentPagerAdapter);
-        //myFragmentPagerAdapter.setFragmentsList( fragmentList);
-       // NewsFragmentPagerAdapter mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
-		mViewPager.setOffscreenPageLimit(1);
-       // mViewPager.setAdapter(mAdapetr);
+		mViewPager.setOffscreenPageLimit(0);
         mViewPager.setAdapter(customLazyFragmentPagerAdapter);
         mViewPager.setOnPageChangeListener(pageListener);
 
@@ -286,7 +289,24 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(ViewGroup container, int position) {
-            return BaseFragment.newInstance(position,userChannelList);
+            ChannelItem item=userChannelList.get(position);
+
+            if (item.getClassify().equals(Classify.ApiGrils)){
+                Bundle data = new Bundle();
+                data.putString("type","ApiGrils");
+                data.putString("text", userChannelList.get(position).getName());
+                data.putInt("id", userChannelList.get(position).getId());
+                return BaseFragment.newInstance(data);
+            }else if (item.getClassify().equals(Classify.BeautyLeg)){
+                Bundle data = new Bundle();
+                data.putString("type","BeautyLeg");
+                data.putString("text", userChannelList.get(position).getName());
+                data.putInt("id", userChannelList.get(position).getId());
+                return BaseFragment.newInstance(data);
+            }
+
+          return  null;
+
         }
 
         @Override

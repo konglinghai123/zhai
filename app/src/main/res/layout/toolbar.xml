@@ -15,7 +15,15 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:navigationIcon="@mipmap/zy_nv_icon"
             app:theme="@style/Theme.AppCompat.NoActionBar">
-
+            <ImageView
+                android:paddingTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_nextpage"
+                android:src="@mipmap/ic_next"
+                android:visibility="gone"
+                />
             <TextView
                 android:layout_width="wrap_content"
             android:layout_height="wrap_content"

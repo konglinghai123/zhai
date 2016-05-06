@@ -1,5 +1,7 @@
 package com.dawnlightning.zhai.bean;
 
+import com.dawnlightning.zhai.base.Classify;
+
 import java.io.Serializable;
 
 /** 
@@ -27,14 +29,24 @@ public class ChannelItem implements Serializable {
 	 *  */
 	public Integer selected;
 
+	public Classify classify;
 	public ChannelItem() {
 	}
 
-	public ChannelItem(int id, String name, int orderId,int selected) {
-		this.id = Integer.valueOf(id);
+	public ChannelItem(Integer id, String name, Integer orderId, Integer selected, Classify classify) {
+		this.id = id;
 		this.name = name;
-		this.orderId = Integer.valueOf(orderId);
-		this.selected = Integer.valueOf(selected);
+		this.orderId = orderId;
+		this.selected = selected;
+		this.classify = classify;
+	}
+
+	public Classify getClassify() {
+		return classify;
+	}
+
+	public void setClassify(Classify classify) {
+		this.classify = classify;
 	}
 
 	public int getId() {

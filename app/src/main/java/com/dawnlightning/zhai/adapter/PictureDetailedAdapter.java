@@ -1,6 +1,7 @@
 package com.dawnlightning.zhai.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,10 +9,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dawnlightning.zhai.R;
+import com.dawnlightning.zhai.activity.ViewPagerActivity;
 import com.dawnlightning.zhai.bean.PicturesBean;
 import com.dawnlightning.zhai.utils.Options;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -19,6 +22,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.io.Serializable;
 import java.util.List;
 
 import uk.co.senab.photoview.PhotoView;
@@ -45,13 +49,23 @@ public class PictureDetailedAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public void onBindViewHolder(final  RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemViewHolder) {
+            ((ItemViewHolder) holder).photoView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent();
+                    intent.setClass(context, ViewPagerActivity.class);
+                    intent.putExtra("list",(Serializable)data);
+                    intent.putExtra("position",position);
+                    context.startActivity(intent);
+                }
+            });
             if ( ((ItemViewHolder) holder).photoView.getTag()!=null
                     &&((ItemViewHolder) holder).photoView.getTag().equals(data.get(position).getSrc())
                     ){
                 //如何是相同URL就不重新加载，防止闪烁
                 Log.e("相同","------------------------>");
             }else{
-                imageLoader.loadImage(data.get(position).getSrc(), options, new ImageLoadingListener() {
+                imageLoader.displayImage(data.get(position).getSrc(), ((ItemViewHolder) holder).photoView, options, new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String s, View view) {
                         ((ItemViewHolder) holder).photoView.setImageResource(R.mipmap.ic_dafult_pic);
@@ -64,9 +78,9 @@ public class PictureDetailedAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                     @Override
                     public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                        ((ItemViewHolder) holder).photoView.setMinimumWidth(bitmap.getWidth());
-                        ((ItemViewHolder) holder).photoView.setMinimumHeight(bitmap.getHeight());
-                        ((ItemViewHolder) holder).photoView.setImageBitmap(bitmap);
+//                        ((ItemViewHolder) holder).photoView.setMinimumWidth(bitmap.getWidth());
+//                        ((ItemViewHolder) holder).photoView.setMinimumHeight(bitmap.getHeight());
+                        //       ((ItemViewHolder) holder).photoView.setImageBitmap(bitmap);
                         ((ItemViewHolder) holder).photoView.setTag(data.get(position).getSrc());
                     }
 
@@ -106,10 +120,10 @@ public class PictureDetailedAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
 
-        PhotoView photoView;
+        ImageView photoView;
         public ItemViewHolder(View view) {
             super(view);
-           photoView=(PhotoView)view.findViewById(R.id.pv_imagedetailed);
+           photoView=(ImageView)view.findViewById(R.id.pv_imagedetailed);
 
         }
     }

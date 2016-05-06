@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.dawnlightning.zhai.R;
 import com.dawnlightning.zhai.activity.ViewImagesActivity;
+import com.dawnlightning.zhai.base.Classify;
+import com.dawnlightning.zhai.bean.BeautyLegListBean;
 import com.dawnlightning.zhai.bean.GalleryBean;
 import com.dawnlightning.zhai.utils.HttpConstants;
 import com.dawnlightning.zhai.utils.Options;
@@ -31,15 +33,22 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
     private static final int TYPE_FOOTER = 1;
     private Context context;
     private List<GalleryBean> data;
+    private List<BeautyLegListBean> beautyLegListBeanList;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private DisplayImageOptions options;
     private FootViewHolder footViewHolder;
-    public RecyclerViewAdapter(Context context, List<GalleryBean> data) {
+    private Classify classify;
+    public RecyclerViewAdapter(Context context,Classify classify) {
         this.context = context;
-        this.data = data;
+        this.classify=classify;
         options = Options.getListOptions();
     }
-
+    public void setData(List<GalleryBean> list){
+        this.data=list;
+    }
+    public void setBeautyLegListBeanList(List<BeautyLegListBean> list){
+        this.beautyLegListBeanList=list;
+    }
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
 
@@ -54,7 +63,12 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return data.size() == 0 ? 0 : data.size() + 1;
+        if (classify.equals(Classify.ApiGrils)){
+            return data.size() == 0 ? 0 : data.size() + 1;
+        }else if (classify.equals(classify.BeautyLeg)){
+            return beautyLegListBeanList.size() == 0 ? 0 : beautyLegListBeanList.size() + 1;
+        }
+        return  0;
     }
 
     @Override
@@ -80,17 +94,59 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
         }
         return null;
     }
-
-
+    public void addBeautyList(List<BeautyLegListBean> list){
+        this.beautyLegListBeanList.addAll(list);
+    }
+    public void clearBeautifyList(){
+        this.beautyLegListBeanList.clear();
+    }
+    public int headinsertBeautify(List<BeautyLegListBean> list){
+        int count=0;
+        if(this.beautyLegListBeanList.size()>0){
+            for (BeautyLegListBean galleryBean:list){
+                for (int i=0;i<this.beautyLegListBeanList.size();i++){
+                    if(galleryBean.getTerm().equals(this.beautyLegListBeanList.get(i).getTerm())){
+                        break;
+                    }else if(i==this.beautyLegListBeanList.size()-1){
+                        this.beautyLegListBeanList.add(0, galleryBean);
+                        count++;
+                    }else{
+                        break;
+                    }
+                }
+            }
+        }else{
+            setBeautyLegListBeanList(list);
+            return  list.size();
+        }
+        return count;
+    }
     @Override
     public void onBindViewHolder(final ViewHolder holder,final int position) {
         if (holder instanceof ItemViewHolder) {
+            if (classify.equals(Classify.ApiGrils)){
             ((ItemViewHolder) holder).tv_image_title.setText(data.get(position).getTitle());
             ((ItemViewHolder) holder).tv_image_date.setText(data.get(position).getSize() + "张");
-            if (((ItemViewHolder) holder).iv_image.getTag()!=null&&((ItemViewHolder)((ItemViewHolder) holder)).iv_image.getTag().equals(HttpConstants.ImageBaseUrl + data.get(position).getImg())){
+                ((ItemViewHolder) holder).iv_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                            GalleryBean bean = data.get(position);
+                            Intent intent = new Intent();
+                            intent.setClass(context, ViewImagesActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("Gallery", bean);
+                            bundle.putSerializable("type","ApiGrils");
+                            intent.putExtras(bundle);
+                            context.startActivity(intent);
+
+                    }
+                });
+
+            if (((ItemViewHolder) holder).iv_image.getTag()!=null&&((ItemViewHolder)((ItemViewHolder) holder)).iv_image.getTag().equals(HttpConstants.ApiImageBaseUrl + data.get(position).getImg())){
 
             }else {
-                imageLoader.displayImage(HttpConstants.ImageBaseUrl + data.get(position).getImg(), ((ItemViewHolder) holder).iv_image, options, new ImageLoadingListener() {
+                imageLoader.displayImage(HttpConstants.ApiImageBaseUrl + data.get(position).getImg(), ((ItemViewHolder) holder).iv_image, options, new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String s, View view) {
 
@@ -104,7 +160,7 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
                     @Override
                     public void onLoadingComplete(String s, View view, Bitmap bitmap) {
 
-                        ((ItemViewHolder) holder).iv_image.setTag(HttpConstants.ImageBaseUrl + data.get(position).getImg());
+                        ((ItemViewHolder) holder).iv_image.setTag(HttpConstants.ApiImageBaseUrl + data.get(position).getImg());
 
                     }
 
@@ -113,19 +169,53 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
 
                     }
                 });
+            }}
+            else if(classify.equals(Classify.BeautyLeg)){
+                ((ItemViewHolder) holder).tv_image_title.setText(beautyLegListBeanList.get(position).getName());
+                ((ItemViewHolder) holder).tv_image_date.setText(beautyLegListBeanList.get(position).getTerm() + "期");
+                ((ItemViewHolder) holder).iv_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        BeautyLegListBean bean = beautyLegListBeanList.get(position);
+                        Intent intent = new Intent();
+                        intent.setClass(context, ViewImagesActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Beautify", bean);
+                        bundle.putSerializable("type","Beautify");
+                        intent.putExtras(bundle);
+                        context.startActivity(intent);
+                    }
+                });
+
+                if (((ItemViewHolder) holder).iv_image.getTag()!=null
+                        &&((ItemViewHolder)((ItemViewHolder) holder)).iv_image.getTag().equals(beautyLegListBeanList.get(position).getImg())){
+
+                }else {
+                    imageLoader.displayImage(beautyLegListBeanList.get(position).getImg(), ((ItemViewHolder) holder).iv_image, options, new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String s, View view) {
+
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String s, View view, FailReason failReason) {
+
+                        }
+
+                        @Override
+                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+
+                            ((ItemViewHolder) holder).iv_image.setTag(beautyLegListBeanList.get(position).getImg());
+
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String s, View view) {
+
+                        }
+                    });
             }
-            ((ItemViewHolder) holder).iv_image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    GalleryBean bean = data.get(position);
-                    Intent intent = new Intent();
-                    intent.setClass(context, ViewImagesActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("Gallery", bean);
-                    intent.putExtras(bundle);
-                    context.startActivity(intent);
-                }
-            });
+
             if (onItemClickListener != null) {
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +240,7 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
         }else{
 
         }
-    }
+    }}
     public void showend(){
         footViewHolder.progressBar.setVisibility(View.GONE);
         footViewHolder.textView.setText("---end---");

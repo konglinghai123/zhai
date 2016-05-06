@@ -56,16 +56,16 @@ public class AppApplication extends Application {
 				.Builder(context)
 				//.memoryCacheExtraOptions(480, 800) // max width, max height，即保存的每个缓存文件的最大长宽
 				//.discCacheExtraOptions(480, 800, CompressFormat.JPEG, 75, null) // Can slow ImageLoader, use it carefully (Better don't use it)设置缓存的详细信息，最好不要设置这个
-				.threadPoolSize(3)//线程池内加载的数量
+				.threadPoolSize(5)//线程池内加载的数量
 				.threadPriority(Thread.NORM_PRIORITY - 2)
 				.denyCacheImageMultipleSizesInMemory()
 				//.memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024)) // You can pass your own memory cache implementation你可以通过自己的内存缓存实现
-				//.memoryCacheSize(2 * 1024 * 1024)
-				///.discCacheSize(50 * 1024 * 1024)  
+				.memoryCacheSize(5 * 1024 * 1024)
+				.discCacheSize(50 * 1024 * 1024)
 				.discCacheFileNameGenerator(new Md5FileNameGenerator())//将保存的时候的URI名称用MD5 加密
 				//.discCacheFileNameGenerator(new HashCodeFileNameGenerator())//将保存的时候的URI名称用HASHCODE加密
-				.tasksProcessingOrder(QueueProcessingType.LIFO)
-				//.discCacheFileCount(100) //缓存的File数量
+				.tasksProcessingOrder(QueueProcessingType.FIFO)
+				.discCacheFileCount(500) //缓存的File数量
 				.discCache(new UnlimitedDiscCache(cacheDir))//自定义缓存路径
 				//.defaultDisplayImageOptions(DisplayImageOptions.createSimple())
 				//.imageDownloader(new BaseImageDownloader(context, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间

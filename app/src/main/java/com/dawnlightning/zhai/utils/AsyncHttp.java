@@ -13,7 +13,10 @@ public class AsyncHttp {
 
 		client.get(url, params, responseHandler);
 	}
+	public static void jsoupget(String url,RequestParams params,TextHttpResponseHandler textHttpResponseHandler){
 
+		client.get(url,params,textHttpResponseHandler);
+	}
 	public static void post(String url,RequestParams params,JsonHttpResponseHandler responseHandler){
 		client.post(url, params, responseHandler);
 	}

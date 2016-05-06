@@ -80,7 +80,7 @@ public class ChannelActivity extends BaseActivity implements OnItemClickListener
 	private void initView() {
 		toolbar=(Toolbar)findViewById(R.id.toolbar);
 		((TextView)toolbar.findViewById(R.id.toolbar_title)).setText("分类管理");
-		toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.image_zhankai));
+		toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_back));
 		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

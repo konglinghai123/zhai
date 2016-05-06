@@ -18,6 +18,11 @@
         </activity>
         <activity android:name="com.dawnlightning.zhai.activity.ChannelActivity"></activity>
         <activity android:name="com.dawnlightning.zhai.activity.ViewImagesActivity"></activity>
+        <activity
+            android:name="com.dawnlightning.zhai.activity.ViewPagerActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
     <!-- 震动权限 -->
     <uses-permission android:name="android.permission.VIBRATE"/>

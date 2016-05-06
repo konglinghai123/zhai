@@ -20,6 +20,9 @@ public class ImageDetailedPresenter implements ImageListModel.ImageDetailedListe
         this.context=context;
         model=new ImageListModel();
     }
+    public void loadBeauify(String url){
+        model.jsoupGetImageDetailed(url,this);
+    }
     public void loadImageDetailed(int classifyid){
        model.viewImageDetail(classifyid,this);
     }

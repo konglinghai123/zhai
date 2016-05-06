@@ -1,9 +1,11 @@
 package com.dawnlightning.zhai.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/5/4.
  */
-public class PicturesBean {
+public class PicturesBean implements Serializable{
     private String gallery;
 
     private String id;

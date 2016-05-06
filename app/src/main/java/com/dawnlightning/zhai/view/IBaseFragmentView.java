@@ -1,6 +1,7 @@
 package com.dawnlightning.zhai.view;
 
 import com.dawnlightning.zhai.base.Actions;
+import com.dawnlightning.zhai.bean.BeautyLegListBean;
 import com.dawnlightning.zhai.bean.GalleryBean;
 
 import java.util.List;
@@ -10,5 +11,6 @@ import java.util.List;
  */
 public interface IBaseFragmentView{
     public void showImageList(List<GalleryBean> list,Actions action,int totalpage);
+    public void showBeautifyImageList(List<BeautyLegListBean> list,Actions action,int totalpage);
     public void showError(int code,String msg,Actions action);
 }

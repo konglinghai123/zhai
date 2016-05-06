@@ -8,6 +8,7 @@ import java.util.Map;
 import android.database.SQLException;
 import android.util.Log;
 
+import com.dawnlightning.zhai.base.Classify;
 import com.dawnlightning.zhai.dao.ChannelDao;
 import com.dawnlightning.zhai.db.SQLHelper;
 
@@ -28,14 +29,14 @@ public class ChannelManage {
 	static {
 		defaultUserChannels = new ArrayList<ChannelItem>();
 		defaultOtherChannels = new ArrayList<ChannelItem>();
-		defaultUserChannels.add(new ChannelItem(1, "性感美女", 1, 1));
-		defaultUserChannels.add(new ChannelItem(2, "韩日美女", 2, 1));
-		defaultUserChannels.add(new ChannelItem(3, "丝袜美腿", 3, 1));
-		defaultUserChannels.add(new ChannelItem(4, "美女照片", 4, 1));
-		defaultUserChannels.add(new ChannelItem(5, "美女写真", 5, 1));
-		defaultUserChannels.add(new ChannelItem(6, "清纯美女", 6, 1));
-		defaultUserChannels.add(new ChannelItem(7, "性感车模", 7, 1));
-
+		defaultUserChannels.add(new ChannelItem(1, "性感美女", 1, 1, Classify.ApiGrils));
+		defaultUserChannels.add(new ChannelItem(2, "韩日美女", 2, 1, Classify.ApiGrils));
+		defaultUserChannels.add(new ChannelItem(3, "丝袜美腿", 3, 1, Classify.ApiGrils));
+		defaultUserChannels.add(new ChannelItem(4, "美女照片", 4, 1, Classify.ApiGrils));
+		defaultUserChannels.add(new ChannelItem(5, "美女写真", 5, 1, Classify.ApiGrils));
+		defaultUserChannels.add(new ChannelItem(6, "清纯美女", 6, 1, Classify.ApiGrils));
+		defaultUserChannels.add(new ChannelItem(7, "性感车模", 7, 1, Classify.ApiGrils));
+		defaultUserChannels.add(new ChannelItem(8, "专业腿模", 8, 1, Classify.BeautyLeg));
 //		defaultOtherChannels.add(new ChannelItem(8, "财经", 1, 0));
 //		defaultOtherChannels.add(new ChannelItem(9, "汽车", 2, 0));
 //		defaultOtherChannels.add(new ChannelItem(10, "房产", 3, 0));
@@ -93,6 +94,17 @@ public class ChannelManage {
 				navigate.setName(maplist.get(i).get(SQLHelper.NAME));
 				navigate.setOrderId(Integer.valueOf(maplist.get(i).get(SQLHelper.ORDERID)));
 				navigate.setSelected(Integer.valueOf(maplist.get(i).get(SQLHelper.SELECTED)));
+				if (maplist.get(i).get(SQLHelper.CLASSIFY).equals("ApiGrils")){
+					navigate.setClassify(Classify.ApiGrils);
+				}else if(maplist.get(i).get(SQLHelper.CLASSIFY).equals("BeautyLeg")){
+					navigate.setClassify(Classify.BeautyLeg);
+				}else if (maplist.get(i).get(SQLHelper.CLASSIFY).equals("Home")){
+					navigate.setClassify(Classify.Home);;
+				}else if (maplist.get(i).get(SQLHelper.CLASSIFY).equals("News")){
+					navigate.setClassify(Classify.News);
+				}else if (maplist.get(i).get(SQLHelper.CLASSIFY).equals("Weather")){
+					navigate.setClassify(Classify.Weather);
+				}
 				list.add(navigate);
 			}
 			return list;

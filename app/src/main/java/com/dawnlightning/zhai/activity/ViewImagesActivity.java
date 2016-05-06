@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.dawnlightning.zhai.R;
 import com.dawnlightning.zhai.adapter.PictureDetailedAdapter;
 import com.dawnlightning.zhai.base.BaseActivity;
+import com.dawnlightning.zhai.bean.BeautyLegListBean;
 import com.dawnlightning.zhai.bean.GalleryBean;
 import com.dawnlightning.zhai.bean.PicturesBean;
 import com.dawnlightning.zhai.presenter.ImageDetailedPresenter;
@@ -38,27 +39,36 @@ public class ViewImagesActivity extends BaseActivity implements IViewImageDetail
         setNeedBackGesture(true);
         toolbar=(Toolbar)findViewById(R.id.toolbar);
         ((TextView)toolbar.findViewById(R.id.toolbar_title)).setText("图片详细");
-        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.image_zhankai));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_back));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 pictureDetailedAdapter.clearmemorycache();
                 pictureDetailedAdapter.cleardata();
-                pictureDetailedAdapter=null;
+                pictureDetailedAdapter = null;
                 finish();
             }
         });
         recyclerView=(RecyclerView)findViewById(R.id.rv_imagedetailed);
         pictureDetailedAdapter=new PictureDetailedAdapter(this,list);
         recyclerView.setHasFixedSize(true);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(
-                1, StaggeredGridLayoutManager.VERTICAL);
+
+        StaggeredGridLayoutManager layoutManager=null;
+        imageDetailedPresenter=new ImageDetailedPresenter(this,this);
+        if (getIntent().getStringExtra("type").equals("ApiGrils")){
+            layoutManager = new StaggeredGridLayoutManager(
+                    2, StaggeredGridLayoutManager.VERTICAL);
+            bean=(GalleryBean)getIntent().getSerializableExtra("Gallery");
+            imageDetailedPresenter.loadImageDetailed(bean.getId());
+        }else if(getIntent().getStringExtra("type").equals("Beautify")){
+            layoutManager = new StaggeredGridLayoutManager(
+                    3, StaggeredGridLayoutManager.VERTICAL);
+            imageDetailedPresenter.loadBeauify(((BeautyLegListBean)getIntent().getSerializableExtra("Beautify")).getUrl());
+        }
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(pictureDetailedAdapter);
-        imageDetailedPresenter=new ImageDetailedPresenter(this,this);
-        bean=(GalleryBean)getIntent().getSerializableExtra("Gallery");
-        imageDetailedPresenter.loadImageDetailed(bean.getId());
+
     }
 
     @Override
