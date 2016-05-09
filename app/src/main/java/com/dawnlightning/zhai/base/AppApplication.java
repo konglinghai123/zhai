@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 public class AppApplication extends Application {
@@ -49,8 +50,22 @@ public class AppApplication extends Application {
 	}
 	/** 初始化ImageLoader */
 	public static void initImageLoader(Context context) {
-		File cacheDir = StorageUtils.getOwnCacheDirectory(context, "zhai/Cache");//获取到缓存的目录地址
-		Log.d("cacheDir", cacheDir.getPath());
+		File cacheDir=null;
+		if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+
+			String path="/storage/sdcard1";
+			String name="zhai/Cache";//你要新建的文件夹名或者文件名
+			cacheDir=new File(path,name);//方法1和方法2的区别在于此
+			boolean is=cacheDir.exists();//判断文件（夹）是否存在
+			if(!is){
+				cacheDir.mkdir();//创建文件夹
+			}
+			//存储在外置sd卡中
+		}else{
+			cacheDir=StorageUtils.getOwnCacheDirectory(context, "zhai/Cache");
+		}
+
+		Log.e("cacheDir", cacheDir.getPath());
 		//创建配置ImageLoader(所有的选项都是可选的,只使用那些你真的想定制)，这个可以设定在APPLACATION里面，设置为全局的配置参数
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration
 				.Builder(context)

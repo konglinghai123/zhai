@@ -7,7 +7,6 @@ import java.io.Serializable;
  */
 public class PicturesBean implements Serializable{
     private String gallery;
-
     private String id;
     private String src;
 

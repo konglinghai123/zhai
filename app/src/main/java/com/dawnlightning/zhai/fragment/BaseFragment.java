@@ -1,15 +1,12 @@
 package com.dawnlightning.zhai.fragment;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,59 +15,40 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.dawnlightning.zhai.R;
-import com.dawnlightning.zhai.activity.ViewImagesActivity;
-import com.dawnlightning.zhai.adapter.RecyclerViewAdapter;
+import com.dawnlightning.zhai.adapter.BaseRecyclerViewAdapter;
 import com.dawnlightning.zhai.base.Actions;
 import com.dawnlightning.zhai.base.Classify;
 import com.dawnlightning.zhai.base.IRefreshAndLoadmore;
 import com.dawnlightning.zhai.bean.BeautyLegListBean;
-import com.dawnlightning.zhai.bean.ChannelItem;
 import com.dawnlightning.zhai.bean.ErrorCode;
 import com.dawnlightning.zhai.bean.GalleryBean;
 import com.dawnlightning.zhai.presenter.ImageListPresenter;
 import com.dawnlightning.zhai.view.IBaseFragmentView;
 import com.dawnlightning.zhai.widget.lvp.LazyFragmentPagerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Created by Administrator on 2016/5/3.
+ * Created by Administrator on 2016/5/9.
  */
-public class BaseFragment extends Fragment implements IBaseFragmentView,IRefreshAndLoadmore,LazyFragmentPagerAdapter.Laziable {
+public abstract class BaseFragment extends Fragment implements IBaseFragmentView,IRefreshAndLoadmore,LazyFragmentPagerAdapter.Laziable{
 
-
-    private  RecyclerView recyclerView;
-    private  SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     boolean isLoading=false;
-    private List<GalleryBean> data = new ArrayList<>();
-    private List<BeautyLegListBean> beautyLegListBeanList=new ArrayList<>();
-    private RecyclerViewAdapter adapter;
+    public BaseRecyclerViewAdapter adapter;
     private Handler handler = new Handler();
-    private final static String TAG = "IMAGELISTFragment";
-    int channel_id;
-    String text;
+    public int channel_id;
+    public  String text;
+    public  String type;
     public static int Page=1;
-    private ImageListPresenter imageListPresenter;
+    public ImageListPresenter imageListPresenter;
     private TextView tv_totalpage;
     private EditText ed_currentpage;
     private ImageView iv_goto;
-    private Classify classify;
-    public static  BaseFragment newInstance(Bundle data) {
-        BaseFragment baseFragment=new BaseFragment();
-        baseFragment.setArguments(data);
-        return baseFragment;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-
-        super.onAttach(activity);
-    }
-
+    public Classify classify;
+    public abstract void initAdapter();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view =inflater.inflate(R.layout.fragment_main, container,false);
@@ -98,11 +76,6 @@ public class BaseFragment extends Fragment implements IBaseFragmentView,IRefresh
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
     public void initData() {
         handler.postDelayed(new Runnable() {
             @Override
@@ -113,8 +86,6 @@ public class BaseFragment extends Fragment implements IBaseFragmentView,IRefresh
         }, 1500);
 
     }
-
-
     private void initview(){
         swipeRefreshLayout.setColorSchemeResources(R.color.jianshured);
         swipeRefreshLayout.post(new Runnable() {
@@ -129,15 +100,14 @@ public class BaseFragment extends Fragment implements IBaseFragmentView,IRefresh
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        BaseFragment.Page=1;
-                        Refresh(BaseFragment.Page,Actions.Refresh);
+                        BaseFragment.Page = 1;
+                        Refresh(BaseFragment.Page, Actions.Refresh);
                     }
                 }, 2000);
             }
         });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -170,19 +140,6 @@ public class BaseFragment extends Fragment implements IBaseFragmentView,IRefresh
                 }
             }
         });
-
-        //添加点击事件
-        adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
-        });
     }
 
     @Override
@@ -191,7 +148,7 @@ public class BaseFragment extends Fragment implements IBaseFragmentView,IRefresh
         Bundle args = getArguments();
         text = args != null ? args.getString("text") : "";
         channel_id = args != null ? args.getInt("id", 0) : 0;
-        String type=args!=null?args.getString("type"):"";
+        type=args!=null?args.getString("type"):"";
         switch (type){
             case "BeautyLeg":
                 classify=Classify.BeautyLeg;
@@ -200,13 +157,8 @@ public class BaseFragment extends Fragment implements IBaseFragmentView,IRefresh
                 classify=Classify.ApiGrils;
                 break;
         }
-        adapter= new RecyclerViewAdapter(getActivity(),classify);
-        if (classify.equals(Classify.ApiGrils)){
-            adapter.setData(data);
-        }else if(classify.equals(Classify.BeautyLeg)){
-            adapter.setBeautyLegListBeanList(beautyLegListBeanList);
-        }
         imageListPresenter=new ImageListPresenter(this,getActivity());
+        initAdapter();
         initData();
         super.onCreate(savedInstanceState);
     }
@@ -239,16 +191,16 @@ public class BaseFragment extends Fragment implements IBaseFragmentView,IRefresh
     @Override
     public void showBeautifyImageList(List<BeautyLegListBean> list, Actions action, int totalpage) {
         if (action.equals(Actions.LoadMore)){
-            adapter.addBeautyList(list);
+            adapter.addAll(list);
             isLoading = false;
             adapter.notifyItemRemoved(adapter.getItemCount());
 
         }else if(action.equals(Actions.Refresh)){
-            adapter.headinsertBeautify(list);//可整上弹出窗
+            adapter.headinsert(list);
             swipeRefreshLayout.setRefreshing(false);
 
         }else if (action.equals(Actions.GoTo)){
-            adapter.setBeautyLegListBeanList(list);
+            adapter.setList(list);
             swipeRefreshLayout.setRefreshing(false);
         }
         ed_currentpage.setText(String.valueOf(BaseFragment.Page));
@@ -263,43 +215,10 @@ public class BaseFragment extends Fragment implements IBaseFragmentView,IRefresh
                 adapter.showend();
                 break;
             case ErrorCode.GetImageListError:
-                Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                 break;
         }
     }
-
-    @Override
-    public void Refresh(int page,Actions action) {
-        if (classify.equals(Classify.ApiGrils)){
-            imageListPresenter.loadImageList(page, channel_id, action);
-        }else if(classify.equals(Classify.BeautyLeg)){
-            imageListPresenter.loadBeatifyLegList(page,action);
-        }
-
-
-    }
-
-    @Override
-    public void LoadMore(int page,Actions action) {
-        if (classify.equals(Classify.ApiGrils)){
-            imageListPresenter.loadImageList(page, channel_id, action);
-        }else if(classify.equals(Classify.BeautyLeg)){
-            imageListPresenter.loadBeatifyLegList(page,action);
-        }
-
-
-    }
-
-    @Override
-    public void GoTo(int page, Actions action) {
-        if (classify.equals(Classify.ApiGrils)){
-            imageListPresenter.loadImageList(page, channel_id, action);
-        }else{
-            imageListPresenter.loadBeatifyLegList(page,action);
-        }
-
-    }
-
     private void hidekeyboard() {
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(ed_currentpage.getWindowToken(), 0);

@@ -118,7 +118,7 @@ public class ImageListModel {
 
     }
     public void umeiGetImageList(int page,final ImageListLisenter listLisenter,final Actions action){
-        String url=String.format(HttpConstants.umeibeautify,page);
+        String url=String.format(HttpConstants.umei,page);
         AsyncHttp.jsoupget(url, null, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {

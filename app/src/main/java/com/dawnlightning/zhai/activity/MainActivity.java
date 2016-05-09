@@ -14,8 +14,8 @@ import com.dawnlightning.zhai.base.BaseActivity;
 import com.dawnlightning.zhai.base.Classify;
 import com.dawnlightning.zhai.bean.ChannelItem;
 import com.dawnlightning.zhai.bean.ChannelManage;
-import com.dawnlightning.zhai.bean.PicturesBean;
-import com.dawnlightning.zhai.fragment.BaseFragment;
+import com.dawnlightning.zhai.fragment.BeautifyLegImagesFragement;
+import com.dawnlightning.zhai.fragment.TiangouImagesFragment;
 import com.dawnlightning.zhai.model.ImageListModel;
 import com.dawnlightning.zhai.widget.ColumnHorizontalScrollView;
 
@@ -23,7 +23,6 @@ import com.dawnlightning.zhai.widget.ColumnHorizontalScrollView;
 
 import android.support.v7.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Gravity;
 
 import android.view.KeyEvent;
@@ -36,7 +35,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.dawnlightning.zhai.utils.BaseTools;
 import com.dawnlightning.zhai.widget.lvp.LazyFragmentPagerAdapter;
@@ -298,13 +296,13 @@ public class MainActivity extends BaseActivity {
                 data.putString("type","ApiGrils");
                 data.putString("text", userChannelList.get(position).getName());
                 data.putInt("id", userChannelList.get(position).getId());
-                return BaseFragment.newInstance(data);
+                return TiangouImagesFragment.newInstance(data);
             }else if (item.getClassify().equals(Classify.BeautyLeg)){
                 Bundle data = new Bundle();
                 data.putString("type","BeautyLeg");
                 data.putString("text", userChannelList.get(position).getName());
                 data.putInt("id", userChannelList.get(position).getId());
-                return BaseFragment.newInstance(data);
+                return BeautifyLegImagesFragement.newInstance(data);
             }
 
           return  null;
