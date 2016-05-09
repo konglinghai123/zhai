@@ -300,12 +300,6 @@ public class BaseFragment extends Fragment implements IBaseFragmentView,IRefresh
 
     }
 
-    @Override
-    public void onDestroy() {
-
-        super.onDestroy();
-    }
-
     private void hidekeyboard() {
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(ed_currentpage.getWindowToken(), 0);

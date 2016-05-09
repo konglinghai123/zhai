@@ -26,7 +26,8 @@ public class ImageListPresenter implements ImageListModel.ImageListLisenter {
         model.getImageList(page,classify,this,action);
     }
     public void loadBeatifyLegList(int page,Actions action){
-        model.jsoupGetImageList(page,this,action);
+        //model.jsoupGetImageList(page,this,action);//官网
+        model.umeiGetImageList(page,this,action);
     }
     @Override
     public void getSuccess(List<GalleryBean> list,Actions action,int totalpage) {

@@ -1,6 +1,7 @@
 package com.dawnlightning.zhai.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.dawnlightning.zhai.bean.PicturesBean;
 import com.dawnlightning.zhai.model.ImageListModel;
@@ -21,7 +22,12 @@ public class ImageDetailedPresenter implements ImageListModel.ImageDetailedListe
         model=new ImageListModel();
     }
     public void loadBeauify(String url){
-        model.jsoupGetImageDetailed(url,this);
+
+        model.jsoupGetImageDetailed(url,this);//官网
+    }
+    public void loadmeitu(String url){
+        Log.e("url",url);
+        model.umeiGetImageDetailed(url,this);
     }
     public void loadImageDetailed(int classifyid){
        model.viewImageDetail(classifyid,this);

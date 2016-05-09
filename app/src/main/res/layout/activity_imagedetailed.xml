@@ -3,12 +3,37 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/toolbar" ></include>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_imagedetailed"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:cacheColorHint="@null"
-        android:scrollbars="vertical" />
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_imagedetailed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@null"
+            android:scrollbars="vertical" />
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pb_imagedetail_loading"
+            android:visibility="gone"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            app:cpb_color="#E78271"
+            app:cpb_stroke_width="3dp"
+            app:cpb_min_sweep_angle="10"
+            app:cpb_max_sweep_angle="300"
+            app:cpb_sweep_speed="1.0"
+            app:cpb_rotation_speed="1.0"
+
+            />
+    </RelativeLayout>
+
+
+
+
 </LinearLayout>

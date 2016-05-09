@@ -52,8 +52,6 @@ public class ViewPagerActivity extends BaseActivity {
 
                     mViewPager.setCurrentItem(currentposition);
                     tv_currentposition.setText(String.format("%s/%s", String.valueOf(currentposition + 1), list.size()));
-                }else{
-                    finish();
                 }
 
             }
@@ -65,14 +63,30 @@ public class ViewPagerActivity extends BaseActivity {
                     currentposition = currentposition + 1;
                     mViewPager.setCurrentItem(currentposition);
                     tv_currentposition.setText(String.format("%s/%s", String.valueOf(currentposition + 1), list.size()));
-                }else{
-                    finish();
                 }
             }
         });
         mViewPager = (HackyViewPager) findViewById(R.id.vp_viewpicture);
         mViewPager.setAdapter(new SamplePagerAdapter());
         mViewPager.setCurrentItem(currentposition);
+        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                currentposition=position;
+                tv_currentposition.setText(String.format("%s/%s", String.valueOf(currentposition + 1), list.size()));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
      class SamplePagerAdapter extends PagerAdapter {
          private ImageLoader imageLoader = ImageLoader.getInstance();

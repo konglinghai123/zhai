@@ -146,6 +146,7 @@ public class RecyclerViewAdapter extends Adapter<ViewHolder> {
             if (((ItemViewHolder) holder).iv_image.getTag()!=null&&((ItemViewHolder)((ItemViewHolder) holder)).iv_image.getTag().equals(HttpConstants.ApiImageBaseUrl + data.get(position).getImg())){
 
             }else {
+
                 imageLoader.displayImage(HttpConstants.ApiImageBaseUrl + data.get(position).getImg(), ((ItemViewHolder) holder).iv_image, options, new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String s, View view) {
