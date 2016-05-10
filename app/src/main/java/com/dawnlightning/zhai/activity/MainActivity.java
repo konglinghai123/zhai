@@ -7,15 +7,15 @@ import android.support.v4.view.ViewPager;
 
 import com.dawnlightning.zhai.R;
 
-import com.dawnlightning.zhai.adapter.MyFragmentPagerAdapter;
 import com.dawnlightning.zhai.base.Actions;
 import com.dawnlightning.zhai.base.AppApplication;
 import com.dawnlightning.zhai.base.BaseActivity;
 import com.dawnlightning.zhai.base.Classify;
-import com.dawnlightning.zhai.bean.ChannelItem;
-import com.dawnlightning.zhai.bean.ChannelManage;
-import com.dawnlightning.zhai.fragment.BeautifyLegImagesFragement;
-import com.dawnlightning.zhai.fragment.TiangouImagesFragment;
+import com.dawnlightning.zhai.channel.ChannelItem;
+import com.dawnlightning.zhai.channel.ChannelManage;
+import com.dawnlightning.zhai.fragment.imagelist.BeautifyLegImagesFragement;
+import com.dawnlightning.zhai.fragment.imagelist.BeiLaQiImagesFragment;
+import com.dawnlightning.zhai.fragment.imagelist.TiangouImagesFragment;
 import com.dawnlightning.zhai.model.ImageListModel;
 import com.dawnlightning.zhai.widget.ColumnHorizontalScrollView;
 
@@ -69,7 +69,6 @@ public class MainActivity extends BaseActivity {
     /** 调整返回的RESULTCODE */
     public final static int CHANNELRESULT = 10;
     private  android.support.v4.app.FragmentManager fragmentManager;
-    private  MyFragmentPagerAdapter myFragmentPagerAdapter;
     private  ArrayList<Fragment> fragmentList=new ArrayList<Fragment>();
     /** 用户选择的分类列表*/
     private ArrayList<ChannelItem> userChannelList=new ArrayList<ChannelItem>();
@@ -303,6 +302,12 @@ public class MainActivity extends BaseActivity {
                 data.putString("text", userChannelList.get(position).getName());
                 data.putInt("id", userChannelList.get(position).getId());
                 return BeautifyLegImagesFragement.newInstance(data);
+            }else if(item.getClassify().equals(Classify.NewApiGrils)){
+                Bundle data = new Bundle();
+                data.putString("type","BeautyLeg");
+                data.putString("text", userChannelList.get(position).getName());
+                data.putInt("id", userChannelList.get(position).getId());
+                return BeiLaQiImagesFragment.newInstance(data);
             }
 
           return  null;

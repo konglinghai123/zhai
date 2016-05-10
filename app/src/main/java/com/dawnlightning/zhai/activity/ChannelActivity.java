@@ -23,12 +23,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
 import com.dawnlightning.zhai.R;
-import com.dawnlightning.zhai.adapter.DragAdapter;
-import com.dawnlightning.zhai.adapter.OtherAdapter;
+import com.dawnlightning.zhai.adapter.channeladapter.DragAdapter;
+import com.dawnlightning.zhai.adapter.channeladapter.OtherAdapter;
 import com.dawnlightning.zhai.base.AppApplication;
 import com.dawnlightning.zhai.base.BaseActivity;
-import com.dawnlightning.zhai.bean.ChannelItem;
-import com.dawnlightning.zhai.bean.ChannelManage;
+import com.dawnlightning.zhai.channel.ChannelItem;
+import com.dawnlightning.zhai.channel.ChannelManage;
 import com.dawnlightning.zhai.widget.DragGrid;
 import com.dawnlightning.zhai.widget.OtherGridView;
 

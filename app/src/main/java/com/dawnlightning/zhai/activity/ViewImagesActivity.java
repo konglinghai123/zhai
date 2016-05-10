@@ -1,11 +1,9 @@
 package com.dawnlightning.zhai.activity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,10 +11,8 @@ import android.widget.Toast;
 import com.dawnlightning.zhai.R;
 import com.dawnlightning.zhai.adapter.PictureDetailedAdapter;
 import com.dawnlightning.zhai.base.BaseActivity;
-import com.dawnlightning.zhai.bean.BeautyLegListBean;
-import com.dawnlightning.zhai.bean.GalleryBean;
-import com.dawnlightning.zhai.bean.PicturesBean;
-import com.dawnlightning.zhai.dialog.LoadingDialog;
+import com.dawnlightning.zhai.bean.ImageDetailedBean;
+import com.dawnlightning.zhai.bean.ImageListBean;
 import com.dawnlightning.zhai.presenter.ImageDetailedPresenter;
 import com.dawnlightning.zhai.view.IViewImageDetailedView;
 
@@ -31,10 +27,10 @@ import fr.castorflex.android.circularprogressbar.CircularProgressBar;
  */
 public class ViewImagesActivity extends BaseActivity implements IViewImageDetailedView {
     private ImageDetailedPresenter imageDetailedPresenter;
-    private GalleryBean bean=null;
+    private ImageListBean bean=null;
     private RecyclerView recyclerView;
     private PictureDetailedAdapter pictureDetailedAdapter;
-    private List<PicturesBean > list=new ArrayList<PicturesBean>();
+    private List<ImageDetailedBean> list=new ArrayList<ImageDetailedBean>();
     private Toolbar toolbar;
     private CircularProgressBar circularProgressBar;
     @Override
@@ -62,13 +58,16 @@ public class ViewImagesActivity extends BaseActivity implements IViewImageDetail
         if (getIntent().getStringExtra("type").equals("ApiGrils")){
             layoutManager = new StaggeredGridLayoutManager(
                     2, StaggeredGridLayoutManager.VERTICAL);
-            bean=(GalleryBean)getIntent().getSerializableExtra("Gallery");
-            imageDetailedPresenter.loadImageDetailed(bean.getId());
+
+            imageDetailedPresenter.loadImageDetailed(((ImageListBean)getIntent().getSerializableExtra("Gallery")).getUrl());
         }else if(getIntent().getStringExtra("type").equals("Beautify")){
             layoutManager = new StaggeredGridLayoutManager(
                     3, StaggeredGridLayoutManager.VERTICAL);
-            //imageDetailedPresenter.loadBeauify(((BeautyLegListBean)getIntent().getSerializableExtra("Beautify")).getUrl());
-            imageDetailedPresenter.loadmeitu(((BeautyLegListBean)getIntent().getSerializableExtra("Beautify")).getUrl());
+            imageDetailedPresenter.loadmeitu(((ImageListBean)getIntent().getSerializableExtra("Beautify")).getUrl());
+        }else if(getIntent().getStringExtra("type").equals("NewApiGrils")){
+            layoutManager = new StaggeredGridLayoutManager(
+                    3, StaggeredGridLayoutManager.VERTICAL);
+            imageDetailedPresenter.loadbeilaqi(((ImageListBean) getIntent().getSerializableExtra("Beautify")).getUrl());
         }
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(pictureDetailedAdapter);
@@ -76,7 +75,7 @@ public class ViewImagesActivity extends BaseActivity implements IViewImageDetail
     }
 
     @Override
-    public void showPictures(List<PicturesBean> list) {
+    public void showPictures(List<ImageDetailedBean> list) {
 
         circularProgressBar.setVisibility(View.GONE);
         pictureDetailedAdapter.setList(list);

@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.dawnlightning.zhai.R;
 import com.dawnlightning.zhai.activity.ViewPagerActivity;
-import com.dawnlightning.zhai.bean.PicturesBean;
+import com.dawnlightning.zhai.bean.ImageDetailedBean;
 import com.dawnlightning.zhai.utils.Options;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -25,8 +25,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import java.io.Serializable;
 import java.util.List;
 
-import uk.co.senab.photoview.PhotoView;
-
 /**
  * Created by Administrator on 2016/5/4.
  */
@@ -34,15 +32,15 @@ public class PictureDetailedAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
     private Context context;
-    private List<PicturesBean> data;
+    private List<ImageDetailedBean> data;
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private DisplayImageOptions options;
-    public PictureDetailedAdapter(Context context, List<PicturesBean> data) {
+    public PictureDetailedAdapter(Context context, List<ImageDetailedBean> data) {
         this.context = context;
         this.data = data;
         options = Options.getListOptions();
     }
-    public void setList( List<PicturesBean> data){
+    public void setList( List<ImageDetailedBean> data){
         this.data=data;
     }
 

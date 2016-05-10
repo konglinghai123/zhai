@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.dawnlightning.zhai.R;
 import com.dawnlightning.zhai.base.BaseActivity;
-import com.dawnlightning.zhai.bean.PicturesBean;
+import com.dawnlightning.zhai.bean.ImageDetailedBean;
 import com.dawnlightning.zhai.utils.Options;
 import com.dawnlightning.zhai.widget.HackyViewPager;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -26,7 +26,7 @@ import uk.co.senab.photoview.PhotoView;
  */
 public class ViewPagerActivity extends BaseActivity {
     private HackyViewPager mViewPager;
-    private List<PicturesBean> list;
+    private List<ImageDetailedBean> list;
     private int currentposition=0;
     private Toolbar toolbar;
     private  TextView tv_currentposition;
@@ -35,7 +35,7 @@ public class ViewPagerActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpager);
-        list=(List<PicturesBean>)getIntent().getSerializableExtra("list");
+        list=(List<ImageDetailedBean>)getIntent().getSerializableExtra("list");
         currentposition=getIntent().getIntExtra("position",0);
         toolbar=(Toolbar)findViewById(R.id.toolbar);
         tv_currentposition=(TextView)toolbar.findViewById(R.id.toolbar_title);

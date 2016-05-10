@@ -6,7 +6,7 @@ package com.dawnlightning.zhai.utils;
 public class HttpConstants {
     public final static  String ApiImageBaseUrl ="http://tnfs.tngou.net/image";
     public final static  String ApiBaseUrl="http://www.tngou.net/tnfs/api/list?";
-    public final static String ApiViewImageDetail="http://www.tngou.net/tnfs/api/show?";
+    public final static String ApiViewImageDetail="http://www.tngou.net/tnfs/api/show?id=%s";
 
     public final static String BeautyLegPortrait="http://www.beautyleg.com/list_album.php?";//beautifyLeg写真，参数P为页数，从0开始
     public final  static String showurl="http://www.beautyleg.com/sample.php?";
@@ -15,5 +15,8 @@ public class HttpConstants {
     public final static String umei="http://www.umei.cc/p/gaoqing/index-%s.htm";//umei全网
     public final static String umenibaseurl="http://www.umei.cc/";//umei
     public final static String umeibeautify="http://www.umei.cc//p/gaoqing/gangtai/index-%s.htm";//Beautify专题
+
+    public final static String BeiLaQiImageList="http://appd.beilaqi.com:832/action/iso_action.php?action=list&id=%s&page=%s";
+    public final static String BeiLaQiImageDetailed="http://appd.beilaqi.com:832/action/iso_action.php?action=article&id=%s";
     
 }

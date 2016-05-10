@@ -2,7 +2,7 @@ package com.dawnlightning.zhai.dao;
 
 import android.content.ContentValues;
 
-import com.dawnlightning.zhai.bean.ChannelItem;
+import com.dawnlightning.zhai.channel.ChannelItem;
 
 import java.util.List;
 import java.util.Map;

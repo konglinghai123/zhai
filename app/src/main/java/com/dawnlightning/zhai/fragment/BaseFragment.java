@@ -16,13 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.dawnlightning.zhai.R;
-import com.dawnlightning.zhai.adapter.BaseRecyclerViewAdapter;
+import com.dawnlightning.zhai.adapter.imagelistadapter.BaseImageListAdapter;
 import com.dawnlightning.zhai.base.Actions;
 import com.dawnlightning.zhai.base.Classify;
 import com.dawnlightning.zhai.base.IRefreshAndLoadmore;
-import com.dawnlightning.zhai.bean.BeautyLegListBean;
-import com.dawnlightning.zhai.bean.ErrorCode;
-import com.dawnlightning.zhai.bean.GalleryBean;
+import com.dawnlightning.zhai.bean.ImageListBean;
+import com.dawnlightning.zhai.base.ErrorCode;
 import com.dawnlightning.zhai.presenter.ImageListPresenter;
 import com.dawnlightning.zhai.view.IBaseFragmentView;
 import com.dawnlightning.zhai.widget.lvp.LazyFragmentPagerAdapter;
@@ -37,7 +36,7 @@ public abstract class BaseFragment extends Fragment implements IBaseFragmentView
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     boolean isLoading=false;
-    public BaseRecyclerViewAdapter adapter;
+    public BaseImageListAdapter adapter;
     private Handler handler = new Handler();
     public int channel_id;
     public  String text;
@@ -163,33 +162,8 @@ public abstract class BaseFragment extends Fragment implements IBaseFragmentView
         super.onCreate(savedInstanceState);
     }
 
-
-
     @Override
-    public void showImageList(List<GalleryBean> list,Actions action,int totalpage) {
-        if (action.equals(Actions.LoadMore)){
-            adapter.addAll(list);
-            isLoading = false;
-            adapter.notifyItemRemoved(adapter.getItemCount());
-
-        }else if(action.equals(Actions.Refresh)){
-            adapter.headinsert(list);//可整上弹出窗
-            swipeRefreshLayout.setRefreshing(false);
-
-        }else if (action.equals(Actions.GoTo)){
-            adapter.setList(list);
-            swipeRefreshLayout.setRefreshing(false);
-        }
-        ed_currentpage.setText(String.valueOf(BaseFragment.Page));
-        tv_totalpage.setText("/" + String.valueOf(totalpage));
-        adapter.notifyDataSetChanged();
-
-
-
-    }
-
-    @Override
-    public void showBeautifyImageList(List<BeautyLegListBean> list, Actions action, int totalpage) {
+    public void showImageList(List<ImageListBean> list, Actions action, int totalpage) {
         if (action.equals(Actions.LoadMore)){
             adapter.addAll(list);
             isLoading = false;

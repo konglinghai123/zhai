@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.dawnlightning.zhai.base.Classify;
-import com.dawnlightning.zhai.bean.ChannelItem;
+import com.dawnlightning.zhai.channel.ChannelItem;
 import com.dawnlightning.zhai.db.SQLHelper;
 
 import java.util.ArrayList;
@@ -44,6 +44,8 @@ public class ChannelDao implements ChannelDaoInface {
 				values.put("classify","News");
 			}else if (item.getClassify().equals(Classify.Weather)){
 				values.put("classify","Weather");
+			}else if (item.getClassify().equals(Classify.NewApiGrils)){
+				values.put("classify","NewApiGrils");
 			}
 			id = database.insert(SQLHelper.TABLE_CHANNEL, null, values);
 			flag = (id != -1 ? true : false);

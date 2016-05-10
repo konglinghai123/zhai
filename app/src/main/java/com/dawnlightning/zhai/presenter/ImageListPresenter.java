@@ -3,8 +3,7 @@ package com.dawnlightning.zhai.presenter;
 import android.content.Context;
 
 import com.dawnlightning.zhai.base.Actions;
-import com.dawnlightning.zhai.bean.BeautyLegListBean;
-import com.dawnlightning.zhai.bean.GalleryBean;
+import com.dawnlightning.zhai.bean.ImageListBean;
 import com.dawnlightning.zhai.model.ImageListModel;
 import com.dawnlightning.zhai.view.IBaseFragmentView;
 
@@ -22,21 +21,21 @@ public class ImageListPresenter implements ImageListModel.ImageListLisenter {
         this.context=context;
         model=new ImageListModel();
     }
+
     public void loadImageList(int page,int classify,Actions action){
-        model.getImageList(page,classify,this,action);
+        model.getImageList(page, classify, this, action);
     }
     public void loadBeatifyLegList(int page,Actions action){
         //model.jsoupGetImageList(page,this,action);//官网
-        model.umeiGetImageList(page,this,action);
+        model.umeiGetImageList(page, this, action);
     }
-    @Override
-    public void getSuccess(List<GalleryBean> list,Actions action,int totalpage) {
-        view.showImageList(list,action,totalpage);
-    }
+    public void loadBeiLaQiList(int page,int classify,Actions action){
 
+        model.getBeilaQiImageList(page, classify, this, action);
+    }
     @Override
-    public void getBeautifyLegSuccess(List<BeautyLegListBean> list, Actions action, int totalpage) {
-        view.showBeautifyImageList(list,action,totalpage);
+    public void getSuccess(List<ImageListBean> list, Actions action, int totalpage) {
+        view.showImageList(list, action, totalpage);
     }
 
     @Override

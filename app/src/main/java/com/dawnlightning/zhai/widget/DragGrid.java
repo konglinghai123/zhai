@@ -21,7 +21,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dawnlightning.zhai.adapter.DragAdapter;
+import com.dawnlightning.zhai.adapter.channeladapter.DragAdapter;
 import com.dawnlightning.zhai.utils.DataTools;
 
 public class DragGrid extends GridView {
