@@ -18,5 +18,12 @@ public class HttpConstants {
 
     public final static String BeiLaQiImageList="http://appd.beilaqi.com:832/action/iso_action.php?action=list&id=%s&page=%s";
     public final static String BeiLaQiImageDetailed="http://appd.beilaqi.com:832/action/iso_action.php?action=article&id=%s";
+
+
+
+
+    public static final String TianGouBaseUrl = "http://www.tngou.net/";
+    public static final String BeiLaQiBaseUrl="http://appd.beilaqi.com:832/";
+    public final static String UmeiBaseUrl="http://www.umei.cc/";//umei全网
     
 }

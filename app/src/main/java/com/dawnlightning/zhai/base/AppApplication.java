@@ -48,13 +48,12 @@ public class AppApplication extends Application {
 		super.onTerminate();
 		//整体摧毁的时候调用这个方法
 	}
-	/** 初始化ImageLoader */
-	public static void initImageLoader(Context context) {
+	public static File cache(String name){
 		File cacheDir=null;
 		if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
 
 			String path="/storage/sdcard1";
-			String name="zhai/Cache";//你要新建的文件夹名或者文件名
+//			String name="zhai/Cache";//你要新建的文件夹名或者文件名
 			cacheDir=new File(path,name);//方法1和方法2的区别在于此
 			boolean is=cacheDir.exists();//判断文件（夹）是否存在
 			if(!is){
@@ -62,10 +61,14 @@ public class AppApplication extends Application {
 			}
 			//存储在外置sd卡中
 		}else{
-			cacheDir=StorageUtils.getOwnCacheDirectory(context, "zhai/Cache");
+			cacheDir=StorageUtils.getOwnCacheDirectory(getApp(),name);
 		}
+		return cacheDir;
+	}
+	/** 初始化ImageLoader */
+	public static void initImageLoader(Context context) {
 
-		Log.e("cacheDir", cacheDir.getPath());
+
 		//创建配置ImageLoader(所有的选项都是可选的,只使用那些你真的想定制)，这个可以设定在APPLACATION里面，设置为全局的配置参数
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration
 				.Builder(context)
@@ -81,7 +84,7 @@ public class AppApplication extends Application {
 				//.discCacheFileNameGenerator(new HashCodeFileNameGenerator())//将保存的时候的URI名称用HASHCODE加密
 				.tasksProcessingOrder(QueueProcessingType.FIFO)
 				.discCacheFileCount(500) //缓存的File数量
-				.discCache(new UnlimitedDiscCache(cacheDir))//自定义缓存路径
+				.discCache(new UnlimitedDiscCache(cache("zhai/Cache")))//自定义缓存路径
 				//.defaultDisplayImageOptions(DisplayImageOptions.createSimple())
 				//.imageDownloader(new BaseImageDownloader(context, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间
 				//.writeDebugLogs() // Remove for release app

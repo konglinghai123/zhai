@@ -23,7 +23,7 @@ public class ImageListPresenter implements ImageListModel.ImageListLisenter {
     }
 
     public void loadImageList(int page,int classify,Actions action){
-        model.getImageList(page, classify, this, action);
+        model.getTianGouImageList(page, classify, this, action);
     }
     public void loadBeatifyLegList(int page,Actions action){
         //model.jsoupGetImageList(page,this,action);//官网

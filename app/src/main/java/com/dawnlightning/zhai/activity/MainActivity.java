@@ -101,7 +101,15 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.jianshured));
         toolbar.setTitle("");
         ((TextView)toolbar.findViewById(R.id.toolbar_title)).setText("首页");
+
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
         button_more_columns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

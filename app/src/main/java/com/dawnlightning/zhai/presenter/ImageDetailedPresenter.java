@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.dawnlightning.zhai.bean.ImageDetailedBean;
 import com.dawnlightning.zhai.model.ImageDetailedModel;
-import com.dawnlightning.zhai.model.ImageListModel;
 import com.dawnlightning.zhai.view.IViewImageDetailedView;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class ImageDetailedPresenter implements ImageDetailedModel.ImageDetailedL
     }
     public void loadBeauify(String url){
 
-        model.jsoupGetImageDetailed(url,this);//官网
+       // model.jsoupGetImageDetailed(url,this);//官网
     }
     public void loadmeitu(String url){
 
@@ -33,7 +32,7 @@ public class ImageDetailedPresenter implements ImageDetailedModel.ImageDetailedL
         model.getBeilaQiImageDetailed(url,this);
     }
     public void loadImageDetailed(String url){
-       model.viewImageDetail(url,this);
+       model.TianGouImageDetail(url, this);
     }
 
     @Override
