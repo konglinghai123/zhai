@@ -1,5 +1,6 @@
 package com.dawnlightning.zhai.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.dawnlightning.zhai.R;
+import com.dawnlightning.zhai.activity.MainActivity;
 import com.dawnlightning.zhai.adapter.imagelistadapter.BaseImageListAdapter;
 import com.dawnlightning.zhai.base.Actions;
 import com.dawnlightning.zhai.base.Classify;
@@ -46,6 +48,7 @@ public abstract class BaseFragment extends Fragment implements IBaseFragmentView
     private TextView tv_totalpage;
     private EditText ed_currentpage;
     private ImageView iv_goto;
+    private ImageView iv_home;
     public Classify classify;
     public abstract void initAdapter();
     @Override
@@ -56,6 +59,13 @@ public abstract class BaseFragment extends Fragment implements IBaseFragmentView
         tv_totalpage=(TextView)view.findViewById(R.id.tv_page_totle);
         ed_currentpage=(EditText)view.findViewById(R.id.et_page_current);
         ed_currentpage.setText("1");
+        iv_home=(ImageView)view.findViewById(R.id.iv_home);
+        iv_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).backhomepage();
+            }
+        });
         iv_goto=(ImageView)view.findViewById(R.id.iv_page_goto);
         iv_goto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +150,6 @@ public abstract class BaseFragment extends Fragment implements IBaseFragmentView
             }
         });
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -156,7 +165,7 @@ public abstract class BaseFragment extends Fragment implements IBaseFragmentView
                 classify=Classify.ApiGrils;
                 break;
         }
-        imageListPresenter=new ImageListPresenter(this,getActivity());
+        imageListPresenter=new ImageListPresenter(this);
         initAdapter();
         initData();
         super.onCreate(savedInstanceState);

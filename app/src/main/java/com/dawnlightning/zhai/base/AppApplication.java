@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.dawnlightning.zhai.db.SQLHelper;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -80,8 +81,8 @@ public class AppApplication extends Application {
 				//.memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024)) // You can pass your own memory cache implementation你可以通过自己的内存缓存实现
 				//.memoryCacheSize(5 * 1024 * 1024)
 				//.discCacheSize(50 * 1024 * 1024)
-				.discCacheFileNameGenerator(new Md5FileNameGenerator())//将保存的时候的URI名称用MD5 加密
-				//.discCacheFileNameGenerator(new HashCodeFileNameGenerator())//将保存的时候的URI名称用HASHCODE加密
+				//.discCacheFileNameGenerator(new Md5FileNameGenerator())//将保存的时候的URI名称用MD5 加密
+				.discCacheFileNameGenerator(null)//将保存的时候的URI名称用HASHCODE加密
 				.tasksProcessingOrder(QueueProcessingType.FIFO)
 				.discCacheFileCount(500) //缓存的File数量
 				.discCache(new UnlimitedDiscCache(cache("zhai/Cache")))//自定义缓存路径

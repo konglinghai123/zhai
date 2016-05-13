@@ -29,6 +29,7 @@ public class ChannelManage {
 	static {
 		defaultUserChannels = new ArrayList<ChannelItem>();
 		defaultOtherChannels = new ArrayList<ChannelItem>();
+		defaultUserChannels.add(new ChannelItem(1, "首页", 14, 1, Classify.Home));
 		defaultUserChannels.add(new ChannelItem(1, "性感美女1", 13, 1, Classify.ApiGrils));
 		defaultUserChannels.add(new ChannelItem(2, "韩日美女1", 12, 1, Classify.ApiGrils));
 		defaultUserChannels.add(new ChannelItem(3, "丝袜美腿1", 11, 1, Classify.ApiGrils));

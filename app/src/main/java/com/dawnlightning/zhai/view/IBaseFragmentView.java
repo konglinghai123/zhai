@@ -11,4 +11,5 @@ import java.util.List;
 public interface IBaseFragmentView{
     public void showImageList(List<ImageListBean> list, Actions action, int totalpage);
     public void showError(int code,String msg,Actions action);
+
 }

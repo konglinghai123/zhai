@@ -21,7 +21,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile files('libs/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar')
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.1.1'
@@ -29,8 +28,13 @@ dependencies {
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
     compile 'org.jsoup:jsoup:1.9.1'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
+
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+
     compile 'io.reactivex:rxandroid:1.1.0'
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.0'
 }

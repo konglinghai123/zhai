@@ -23,6 +23,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +44,15 @@ public class PictureDetailedAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void setList( List<ImageDetailedBean> data){
         this.data=data;
     }
-
+    public  List<ImageDetailedBean>skipdata(int postion){
+        List<ImageDetailedBean> list=new ArrayList<>();
+        for (int i=postion;i<postion+500;i++){
+            if (i<data.size()){
+                list.add(data.get(i));
+            }
+        }
+        return list;
+    }
     @Override
     public void onBindViewHolder(final  RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemViewHolder) {
@@ -52,8 +61,14 @@ public class PictureDetailedAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 public void onClick(View v) {
                     Intent intent=new Intent();
                     intent.setClass(context, ViewPagerActivity.class);
-                    intent.putExtra("list",(Serializable)data);
-                    intent.putExtra("position",position);
+                    if (data.size()>1500){
+                        intent.putExtra("list",(Serializable)skipdata(position));
+                        intent.putExtra("position",0);
+                    }else{
+                        intent.putExtra("list",(Serializable)data);
+                        intent.putExtra("position",position);
+                    }
+
                     context.startActivity(intent);
                 }
             });

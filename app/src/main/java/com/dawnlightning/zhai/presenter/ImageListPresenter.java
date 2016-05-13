@@ -15,11 +15,10 @@ import java.util.List;
 public class ImageListPresenter implements ImageListModel.ImageListLisenter {
     private ImageListModel model;
     private IBaseFragmentView view;
-    private Context context;
-    public ImageListPresenter(IBaseFragmentView view,Context context){
+
+    public ImageListPresenter(IBaseFragmentView view){
         this.view=view;
-        this.context=context;
-        model=new ImageListModel();
+        this.model=new ImageListModel();
     }
 
     public void loadImageList(int page,int classify,Actions action){

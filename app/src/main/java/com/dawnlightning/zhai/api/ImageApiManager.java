@@ -88,10 +88,11 @@ public class ImageApiManager {
 
         return apiManager.getBeiLaQiImageDetailed(id);
     }
+
     public interface ImageApiManagerService{
+
         @GET("/tnfs/api/list")
         Observable<TianGouListBean> getTianGouImageList(@Query("page") int page,@Query("id") int id,@Query("rows") int rows);
-
         @GET("/tnfs/api/show?")
         Observable<TianGouImagesBean> getTianGouImageDetailed(@Query("id") int id);
 
@@ -107,6 +108,8 @@ public class ImageApiManager {
         Observable<ResponseBody> getumeiImageList(@Path("page") int page);
         @GET("{path}")
         Observable<ResponseBody> getumeiImagesDetailed(@Path("path") String url);
+        @GET("capi/do.php?ac=login&username={username}&password={password}&loginsubmit=true")
+        Observable<RequestBody> get(@Path("username") String username,@Path("password") String password);
     }
 
 
