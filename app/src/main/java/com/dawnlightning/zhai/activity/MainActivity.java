@@ -86,6 +86,7 @@ public class MainActivity extends BaseActivity {
         initData();
     }
 
+
     public void initView() {
         toolbar=(Toolbar)findViewById(R.id.toolbar);
 
