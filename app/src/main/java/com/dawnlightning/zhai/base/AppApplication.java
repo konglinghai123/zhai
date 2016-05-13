@@ -80,7 +80,7 @@ public class AppApplication extends Application {
 				//.memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024)) // You can pass your own memory cache implementation你可以通过自己的内存缓存实现
 				//.memoryCacheSize(5 * 1024 * 1024)
 				//.discCacheSize(50 * 1024 * 1024)
-				.discCacheFileNameGenerator(new Md5FileNameGenerator())//将保存的时候的URI名称用MD5 加密
+				//.discCacheFileNameGenerator(new Md5FileNameGenerator())//将保存的时候的URI名称用MD5 加密
 				//.discCacheFileNameGenerator(new HashCodeFileNameGenerator())//将保存的时候的URI名称用HASHCODE加密
 				.tasksProcessingOrder(QueueProcessingType.FIFO)
 				.discCacheFileCount(500) //缓存的File数量

@@ -13,6 +13,7 @@ import com.dawnlightning.zhai.base.BaseActivity;
 import com.dawnlightning.zhai.base.Classify;
 import com.dawnlightning.zhai.channel.ChannelItem;
 import com.dawnlightning.zhai.channel.ChannelManage;
+import com.dawnlightning.zhai.fragment.MainFragment;
 import com.dawnlightning.zhai.fragment.imagelist.BeautifyLegImagesFragement;
 import com.dawnlightning.zhai.fragment.imagelist.BeiLaQiImagesFragment;
 import com.dawnlightning.zhai.fragment.imagelist.TiangouImagesFragment;
@@ -308,6 +309,8 @@ public class MainActivity extends BaseActivity {
                 data.putString("text", userChannelList.get(position).getName());
                 data.putInt("id", userChannelList.get(position).getId());
                 return BeiLaQiImagesFragment.newInstance(data);
+            }else if (item.getClassify().equals(Classify.Home)){
+                return MainFragment.newInstance();
             }
 
           return  null;

@@ -156,7 +156,7 @@ public abstract class BaseFragment extends Fragment implements IBaseFragmentView
                 classify=Classify.ApiGrils;
                 break;
         }
-        imageListPresenter=new ImageListPresenter(this,getActivity());
+        imageListPresenter=new ImageListPresenter(this);
         initAdapter();
         initData();
         super.onCreate(savedInstanceState);

@@ -28,10 +28,10 @@ import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 public class ViewImagesActivity extends BaseActivity implements IViewImageDetailedView {
     private ImageDetailedPresenter imageDetailedPresenter;
     private ImageListBean bean=null;
+    private Toolbar toolbar;
     private RecyclerView recyclerView;
     private PictureDetailedAdapter pictureDetailedAdapter;
     private List<ImageDetailedBean> list=new ArrayList<ImageDetailedBean>();
-    private Toolbar toolbar;
     private CircularProgressBar circularProgressBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
