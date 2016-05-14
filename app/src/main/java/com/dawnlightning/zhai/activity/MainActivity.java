@@ -132,6 +132,7 @@ public class MainActivity extends BaseActivity {
     /** 获取Column栏目 数据*/
     private void initColumnData() {
         userChannelList = ((ArrayList<ChannelItem>) ChannelManage.getManage(AppApplication.getApp().getSQLHelper()).getUserChannel());
+
     }
 
     /**

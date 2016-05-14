@@ -38,58 +38,47 @@ public class ImageListModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
-                    public void call(ResponseBody responseBody) {
+                    public void call(ResponseBody response) {
+                        try {
+                            String strresponse = new String(response.bytes(), "gb2312");
+                            Document doc = Jsoup.parse(strresponse);
+                            List<ImageListBean> list = new ArrayList<ImageListBean>();
+                            Elements divs = doc.getElementsByClass("t");
+                            Element pages = doc.getElementsByClass("pages").first();
+                            int page = Integer.parseInt(pages.getElementsByTag("a").last().text().toString());
+                            int index = 0;
+                            for (Element element : divs) {
+                                if (index > 0 && index < divs.size() - 1) {
+                                    ImageListBean imageListBean = new ImageListBean();
+                                    Element element1 = element.getElementsByClass("title").first().getElementsByTag("a").first();
+                                    if (element1 != null) {
+                                        imageListBean.setUrl(element1.attr("href").toString());
+                                        String name = element1.attr("title").toString();
+                                        imageListBean.setName(name.substring(name.indexOf("[") + 1, name.indexOf("]")));
+                                        imageListBean.setTerm(name.substring(name.lastIndexOf("[") + 1, name.lastIndexOf("]")));
+                                        imageListBean.setImg(element.getElementsByClass("img").last().getElementsByTag("img").first().attr("src").toString());
+                                        list.add(imageListBean);
+                                    }
 
+                                }
+                                index++;
+                            }
+                            if (list.size() > 0) {
+                                listLisenter.getSuccess(list, action, page);
+                            } else {
+                                listLisenter.getFailure(ErrorCode.NoNextPage, "没有更多的图片", action);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            listLisenter.getFailure(ErrorCode.GetImageListError, e.toString(), action);
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
+                        listLisenter.getFailure(ErrorCode.GetImageListError, throwable.toString(), action);
                     }
                 });
-//                .subscribe(new Action1<ResponseBody>() {
-//                    @Override
-//                    public void call(ResponseBody response) {
-//                        try {
-//                            String strresponse = new String(response.bytes(), "gb2312");
-//                            Document doc = Jsoup.parse(strresponse);
-//                            List<ImageListBean> list = new ArrayList<ImageListBean>();
-//                            Elements divs = doc.getElementsByClass("t");
-//                            Element pages = doc.getElementsByClass("pages").first();
-//                            int page = Integer.parseInt(pages.getElementsByTag("a").last().text().toString());
-//                            int index = 0;
-//                            for (Element element : divs) {
-//                                if (index > 0 && index < divs.size() - 1) {
-//                                    ImageListBean imageListBean = new ImageListBean();
-//                                    Element element1 = element.getElementsByClass("title").first().getElementsByTag("a").first();
-//                                    if (element1 != null) {
-//                                        imageListBean.setUrl(element1.attr("href").toString());
-//                                        String name = element1.attr("title").toString();
-//                                        imageListBean.setName(name.substring(name.indexOf("[") + 1, name.indexOf("]")));
-//                                        imageListBean.setTerm(name.substring(name.lastIndexOf("[") + 1, name.lastIndexOf("]")));
-//                                        imageListBean.setImg(element.getElementsByClass("img").last().getElementsByTag("img").first().attr("src").toString());
-//                                        list.add(imageListBean);
-//                                    }
-//
-//                                }
-//                                index++;
-//                            }
-//                            if (list.size() > 0) {
-//                                listLisenter.getSuccess(list, action, page);
-//                            } else {
-//                                listLisenter.getFailure(ErrorCode.NoNextPage, "没有更多的图片", action);
-//                            }
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                            listLisenter.getFailure(ErrorCode.GetImageListError, e.toString(), action);
-//                        }
-//                    }
-//                }, new Action1<Throwable>() {
-//                    @Override
-//                    public void call(Throwable throwable) {
-//                        listLisenter.getFailure(ErrorCode.GetImageListError, throwable.toString(), action);
-//                    }
-//                });
     }
     public void getBeilaQiImageList(int page,int classifyid,final ImageListLisenter listLisenter,final Actions action){
         new ImageApiManager(HttpConstants.BeiLaQiBaseUrl).getBeiLaQiImageList(page,classifyid)
